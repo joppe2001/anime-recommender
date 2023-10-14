@@ -2,19 +2,20 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
 import numpy as np
+from google.cloud import storage
 import pickle
-import os
-import firebase_admin
-from firebase_admin import credentials, storage
-
-cred = credentials.Certificate(
-    "C:/Users/joppe/machine-learning/serviceAccountKey.json")
-firebase_admin.initialize_app(cred, {
-    'storageBucket': 'my-anime-guide.appspot.com'
-})
+import io
 
 app = Flask(__name__)
 CORS(app)  # This will handle CORS for the React frontend
+
+# Initialize Google Cloud Storage client
+storage_client = storage.Client()
+
+def download_blob(bucket_name, source_blob_name):
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob(source_blob_name)
+    return blob.download_as_bytes()
 
 def recommend_anime(df, cosine_sim, user_history, N=10):
     user_anime_indices = []
@@ -42,24 +43,29 @@ def recommend_anime(df, cosine_sim, user_history, N=10):
 
     return recommended_anime
 
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
     # Get user history from POST request
+    print("Inside get_recommendations")  # Debugging line
     user_history = request.json.get('user_history', [])
+    print(f"User history: {user_history}")  # Debugging line
 
-    # Here, you may want to set your save_directory
-    save_directory = ""
-    df = pd.read_pickle(os.path.join(
-        save_directory, "model/anime_dataframe.pkl"))
-    cosine_sim = pd.read_pickle(os.path.join(
-        save_directory, "model/cosine_similarity_matrix.pkl"))
+    # Download data from Google Cloud Storage
+    bucket_name = "anime-recommender-joppe.appspot.com"
+    df_data = download_blob(bucket_name, "anime_dataframe.pkl")
+    cosine_sim_data = download_blob(bucket_name, "cosine_similarity_matrix.pkl")
+    
+    df = pd.read_pickle(io.BytesIO(df_data))
+    cosine_sim = pd.read_pickle(io.BytesIO(cosine_sim_data))
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
     result = [{"name": name, "score": score, "url": url}
               for name, score, url in recommendations.values]
     return jsonify(result)
 
-
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=3000, ssl_context=('localhost.pem', 'localhost-key.pem'))

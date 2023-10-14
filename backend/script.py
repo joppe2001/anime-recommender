@@ -4,23 +4,17 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
+import firebase_admin
+from firebase_admin import credentials, storage
+
+cred = credentials.Certificate(
+    "C:/Users/joppe/machine-learning/serviceAccountKey.json")
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'my-anime-guide.appspot.com'
+})
 
 app = Flask(__name__)
 CORS(app)  # This will handle CORS for the React frontend
-
-
-@app.route('/')
-def home():
-    return "Welcome to the Anime Recommendation API!"
-
-
-def load_saved_data(directory):
-    df = pd.read_pickle(os.path.join(
-        directory, "model/anime_dataframe.pkl"))
-    with open(os.path.join(directory, "model/cosine_similarity_matrix.pkl"), 'rb') as f:
-        cosine_sim = pickle.load(f)
-    return df, cosine_sim
-
 
 def recommend_anime(df, cosine_sim, user_history, N=10):
     user_anime_indices = []
@@ -56,7 +50,10 @@ def get_recommendations():
 
     # Here, you may want to set your save_directory
     save_directory = ""
-    df, cosine_sim = load_saved_data(save_directory)
+    df = pd.read_pickle(os.path.join(
+        save_directory, "model/anime_dataframe.pkl"))
+    cosine_sim = pd.read_pickle(os.path.join(
+        save_directory, "model/cosine_similarity_matrix.pkl"))
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
     result = [{"name": name, "score": score, "url": url}

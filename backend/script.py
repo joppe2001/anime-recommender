@@ -7,7 +7,7 @@ import pickle
 import io
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/recommend": {"origins": "https://master--stunning-chaja-f05f2a.netlify.app"}})
 
 # Initialize Google Cloud Storage client
 storage_client = storage.Client()

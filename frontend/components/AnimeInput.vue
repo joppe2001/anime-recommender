@@ -18,7 +18,7 @@
 		const inputArray = animeInput.value.split(",");
 		// Make API request to the Flask backend
 		const backendURL =
-			process.env.VUE_APP_BACKEND_URL || "http://localhost:8080/recommend";
+			process.env.VUE_APP_BACKEND_URL || "http://localhost:5000/recommend";
 		const response = await fetch(backendURL, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },

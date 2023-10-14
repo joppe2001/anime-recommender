@@ -66,6 +66,6 @@ def get_recommendations():
     result = [{"name": name, "score": score, "url": url}
               for name, score, url in recommendations.values]
     return jsonify(result)
-
+    
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=True, host='0.0.0.0', port=8080)

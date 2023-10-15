@@ -7,15 +7,14 @@ import pickle
 import io
 
 app = Flask(__name__)
-CORS(app, resources={r"/recommend": {"origins": "https://master--stunning-chaja-f05f2a.netlify.app"}})
+CORS(app)  # This will handle CORS for the React frontend
 
 # Initialize Google Cloud Storage client
 storage_client = storage.Client()
 
-def download_blob(bucket_name, source_blob_name):
-    bucket = storage_client.get_bucket(bucket_name)
-    blob = bucket.blob(source_blob_name)
-    return blob.download_as_bytes()
+def load_local_file(file_path):
+    with open(file_path, 'rb') as f:
+        return pickle.load(f)
 
 def recommend_anime(df, cosine_sim, user_history, N=10):
     user_anime_indices = []
@@ -50,22 +49,16 @@ def hello_world():
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
     # Get user history from POST request
-    print("Inside get_recommendations")  # Debugging line
     user_history = request.json.get('user_history', [])
-    print(f"User history: {user_history}")  # Debugging line
 
-    # Download data from Google Cloud Storage
-    bucket_name = "anime-recommender-joppe.appspot.com"
-    df_data = download_blob(bucket_name, "anime_dataframe.pkl")
-    cosine_sim_data = download_blob(bucket_name, "cosine_similarity_matrix.pkl")
-    
-    df = pd.read_pickle(io.BytesIO(df_data))
-    cosine_sim = pd.read_pickle(io.BytesIO(cosine_sim_data))
+    # Load data from local project directory
+    df = load_local_file("model/anime_dataframe.pkl")
+    cosine_sim = load_local_file("model/cosine_similarity_matrix.pkl")
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
     result = [{"name": name, "score": score, "url": url}
               for name, score, url in recommendations.values]
     return jsonify(result)
-    
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(debug=True, port=3000, ssl_context=('localhost.pem', 'localhost-key.pem'))

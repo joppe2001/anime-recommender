@@ -12,9 +12,16 @@ CORS(app)  # This will handle CORS for the React frontend
 # Initialize Google Cloud Storage client
 storage_client = storage.Client()
 
-def load_local_file(file_path):
-    with open(file_path, 'rb') as f:
-        return pickle.load(f)
+BUCKET_NAME = '007-model'
+
+def load_from_gcs(file_path):
+    bucket = storage_client.bucket(BUCKET_NAME)
+    blob = bucket.blob(file_path)
+    data = blob.download_as_bytes()
+    return pickle.loads(data)
+
+cosine_sim = load_from_gcs("cosine_similarity_matrix.pkl")
+
 
 def recommend_anime(df, cosine_sim, user_history, N=10):
     user_anime_indices = []
@@ -51,14 +58,14 @@ def get_recommendations():
     # Get user history from POST request
     user_history = request.json.get('user_history', [])
 
-    # Load data from local project directory
-    df = load_local_file("model/anime_dataframe.pkl")
-    cosine_sim = load_local_file("model/cosine_similarity_matrix.pkl")
+    # Load data from Google Cloud Storage
+    df = load_from_gcs("anime_dataframe.pkl")
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
     result = [{"name": name, "score": score, "url": url}
               for name, score, url in recommendations.values]
     return jsonify(result)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000, ssl_context=('localhost.pem', 'localhost-key.pem'))

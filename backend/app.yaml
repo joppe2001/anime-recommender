@@ -1,0 +1,7 @@
+runtime: python311
+instance_class: F4
+
+env_variables:
+  SERVICE_ACCOUNT_FILE_PATH: "C:\\Users\\joppe\\machine-learning\\new-recommender-795bc7efb5e0.json"
+
+entrypoint: python script.py

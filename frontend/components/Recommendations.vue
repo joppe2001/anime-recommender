@@ -46,26 +46,16 @@
 				<!-- all rank -->
 				<div class="tags">
 					<!-- display allRank's first number in the array -->
-					<span v-for="rank in anime.allRank[0]" :key="rank"
-						><strong>Rank: </strong>{{ rank }}</span
-					>
+					<span v-for="rank in anime.allRank[0]" :key="rank">{{ rank }}</span>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
+<!-- consentual -->
 <script setup>
-
-const { recommendedAnime } = defineProps();
-
-const sortedAnimeList = computed(() => {
-    if (!recommendedAnime || !recommendedAnime.length) return [];
-
-    return [...recommendedAnime].sort((a, b) => b.similarity_percentage - a.similarity_percentage);
-});
-
-
+	const props = defineProps(["recommendedAnime"]);
 </script>
 
 <style scoped lang="scss">

@@ -34,7 +34,7 @@
 					<strong>Studios:</strong> {{ anime.studios.join(", ") }}
 				</p>
 				<!-- all rank -->
-				<p v-if="anime.rank"><strong>Rank </strong> {{ anime.rank }}</p>
+				<p v-if="anime.allRank"><strong>Rank </strong> {{ anime.allRank }}</p>
 			</div>
 		</div>
 	</div>

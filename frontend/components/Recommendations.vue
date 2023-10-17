@@ -16,7 +16,9 @@
 					class="similarity-meter"
 					:value="anime.similarity_percentage"
 					max="100"
-				></progress>
+				>
+        <p>{{ anime.similarity_percentage  }}</p>
+      </progress>
 
 				<p><strong>Score:</strong> {{ anime.score }}</p>
 
@@ -128,12 +130,24 @@
 		}
 
 		.similarity-meter {
+      position: relative;
 			width: 100%;
-			height: 8px;
+			height: 30px;
 			border: none;
 			border-radius: 4px;
 			color: #3498db; // This changes the bar color in some browsers
 			background-color: #e1e1e1;
+      
+      p {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        text-align: center;
+
+        &::before {
+          content: "%";
+        }
+      }
 
 			// For Firefox
 			&::-moz-progress-bar {

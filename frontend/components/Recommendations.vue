@@ -19,7 +19,7 @@
 						max="100"
 					></progress>
 					<div class="percentage-label">
-						{{ anime.similarity_percentage.toFixed(2) }}%
+						{{ anime.similarity_percentage.toFixed(2) }}% similar to your input
 					</div>
 				</div>
 				<p><strong>Score:</strong> {{ anime.score }}</p>

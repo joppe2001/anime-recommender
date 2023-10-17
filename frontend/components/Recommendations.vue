@@ -59,19 +59,12 @@
 
 const { recommendedAnime } = defineProps();
 
-const sortedAnimeList = ref([]);
+const sortedAnimeList = computed(() => {
+    if (!recommendedAnime || !recommendedAnime.length) return [];
 
-watch(recommendedAnime, (newList) => {
-  console.log('recommendedAnime updated:', newList);
-
-  if (newList && newList.length) {
-    sortedAnimeList.value = newList
-      .slice()
-      .sort((a, b) => b.similarity_percentage - a.similarity_percentage);
-  } else {
-    sortedAnimeList.value = [];
-  }
+    return [...recommendedAnime].sort((a, b) => b.similarity_percentage - a.similarity_percentage);
 });
+
 
 </script>
 

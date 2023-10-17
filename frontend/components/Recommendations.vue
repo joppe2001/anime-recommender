@@ -12,14 +12,14 @@
 						anime?.name ? anime.name : "Name not available"
 					}}</a>
 				</h3>
-				<progress
-					class="similarity-meter"
-					:value="anime.similarity_percentage"
-					max="100"
-				>
-        <p>{{ anime.similarity_percentage  }}</p>
-      </progress>
-
+				<div class="similarity-score-container">
+					<progress
+						class="similarity-meter"
+						:value="anime.similarity_percentage"
+						max="100"
+					></progress>
+					<div class="percentage-label">{{ anime.similarity_percentage }}%</div>
+				</div>
 				<p><strong>Score:</strong> {{ anime.score }}</p>
 
 				<div v-if="anime.genres" class="tags">
@@ -44,9 +44,7 @@
 				<!-- all rank -->
 				<div class="tags">
 					<!-- display allRank's first number in the array -->
-					<span class="tag" v-for="rank in anime.allRank[0]" :key="rank">{{
-						rank
-					}}</span>
+					<span v-for="rank in anime.allRank[0]" :key="rank">{{ rank }}</span>
 				</div>
 			</div>
 		</div>
@@ -128,40 +126,25 @@
 				}
 			}
 		}
+		.similarity-score-container {
+			position: relative;
+			width: 100%;
+		}
 
 		.similarity-meter {
-      position: relative;
 			width: 100%;
-			height: 30px;
-			border: none;
-			border-radius: 4px;
-			color: #3498db; // This changes the bar color in some browsers
-			background-color: #e1e1e1;
-      
-      p {
-        position: absolute;
-        left: 0;
-        width: 100%;
-        text-align: center;
+			height: 20px; // Or whatever height you prefer
+			// ... your other styles for the progress bar ...
+		}
 
-        &::before {
-          content: "%";
-        }
-      }
-
-			// For Firefox
-			&::-moz-progress-bar {
-				background-color: #3498db;
-			}
-
-			// For Chrome, Safari, and Opera
-			&::-webkit-progress-bar {
-				background-color: #e1e1e1;
-			}
-
-			&::-webkit-progress-value {
-				background-color: #3498db;
-			}
+		.percentage-label {
+			position: absolute;
+			top: 0; // Adjust this value to vertically center the text, if necessary
+			left: 0;
+			width: 100%;
+			text-align: center;
+			line-height: 20px; // Should match the height of your progress bar
+			color: #555; // Or another color that contrasts well with your progress bar color
 		}
 
 		// Tablet layout

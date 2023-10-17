@@ -1,7 +1,29 @@
-runtime: python311
-instance_class: F4
+runtime: python # or the version you're using
+
+entrypoint: gunicorn -b :$PORT script:app
+
+runtime_config:
+  python_version: 3
+
+resources:
+  cpu: 2
+  memory_gb: 7.5
+  disk_size_gb: 10
+
+env: flex
 
 env_variables:
-  SERVICE_ACCOUNT_FILE_PATH: "C:\\Users\\joppe\\machine-learning\\new-recommender-795bc7efb5e0.json"
+  SERVICE_ACCOUNT_JSON: '{
+    "type": "service_account",
+    "project_id": "anime-recommender-joppe",
+    "private_key_id": "cec446212e14df77668d129d2bfa1335f3a27563",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC9pMQwxXIpGOHI\nY6ZvY4ygz0xiX/D+232OLCiUfN1tZKU61sLSfLCZ5Q7/wet9kDzHja5Wfmrso0Vu\nZoXFHJ2A7DFwwAp/2AbPSMvtn+ogzR70Uo48G9SRjoqR+MgkbtB2I1pNDiWzmBSy\nGiufxpHyI0s5leUHGYrCjH5WD0M6mMgNuYUopco8KV9ZhdC8bzR1bqfDL2g3KqlS\n/J6IlwSm+9rq82UDw6fcN+vTxB1lsgTummca+CKaEyEjNCKtJ8Bk9mKBIyejl+Up\nPJr3Uie1H6JFtbaQaZZr3e/hzOS0M06rGyukBXBWl2Arp7hORCcj/78wV/9yoBRN\n6yHabsPHAgMBAAECggEAUge/RUlixBwbLc7M40mwPq7sX3EYkWTnvmOjefc44GS0\ng+r5goqk6SyHfGGpNzr4z2idjJRKM+m70rFOE6D5EBcam6a14+7Roz/d1f9iCqYv\nSYecNqvjGsMJdXKjP/8e9Lr+CG6iKDkUWqWvUQFXh+F0XIhV9Og7eUPEMf2QGvvS\n24CR/o+hfNF1W3K5JexWREPcsx2hD/cFlCMcRbnHaGLJynFC4dGOPM+rtj60YbVX\nZ6bMyo2igFv49r9FNa7WQfEBQLgJ7C7cgQlsD1kbeXDiX3enxCswF3fpxSqTRH3v\naw4aRy8nyZwmxt9yuK1Bg8QumPbqI5/3fKHPdFFqgQKBgQD7zwFDFDU3tCBiKJ1E\nzSZoJGC9aco8VLYI/xbrqjqgZwVTY1rNyvrjfyGYUuFPa97JSzjZ3l7D/8DnNXXZ\nzgBBDLluu8Ocny9F0n7XzA3K/EFi1/h/LA6RxcfS4TwcP27FMAl1qRP9ee6YWKN9\naPyZapLAVJ3BvrrsmNLedoIpVwKBgQDAzN3rnEgdYdO5j8PpvStIyguhiReK6I88\nDy+jQZIhsVTl1ZfR9xwQogcdKG+x1S5uolmHTOeQr8quy+T4407V2doqHqgEWcJO\n7l2z6xpcxXi+yxjwMjobtQFCalQ84yWr0wOAsB7dKdqEiXN5D7AAAbEHaLMrSx71\nhyKhLmIDEQKBgBqcf9ek9RLT+HAnNqekvqBW59pcqcDCexJsUvHI5bU57fgoEdqZ\nzvXn45cDe0g3cC35wyJTO9Se3LYSkkfYW3KEc7xeH4gX0pkga8NGj1aaXhaiGGLo\nNwn0yu9gWkfp9DzmnLlQiwpIroxvIagJRli4SJYG2z00ePC0HeTgxVS1AoGAJ/ZO\nyVdLW0u7puq1oO0k26GFZ6YSyygJCFnddelRcMpg3oK3RT4DAy+SaejHvgSB60yb\nYf/+v26whCqe+zeiT5EoNzLDgKNaMyIVKgXBIRmNPX67XI4MnVGXQTzo2PX8CPFj\n+HiI7S6PrIkQ9jbaNCYlm3OIL6ESebHY66/BgQECgYAaXkAJrd1HHXMjK/+UtOOE\nuGi5T7uvxQEd6kjBCE+qS1jcV5yU7At3vPv/gg2JRp/nfBqN5wrsOcVrhzcaFcEh\nBTtnsFVj0hp2fevQAX3nhxOn4g430in7LKkL9MqIDkcg7yievRJVTaGwpyLuBhD6\nwRa6PNEyzbvdvjkxIcQ0wQ==\n-----END PRIVATE KEY-----\n",
+    "client_email": "joppe-main@anime-recommender-joppe.iam.gserviceaccount.com",
+    "client_id": "111429860836097129224",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/joppe-main%40anime-recommender-joppe.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }'
 
-entrypoint: python script.py

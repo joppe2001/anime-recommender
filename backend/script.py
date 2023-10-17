@@ -1,18 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import pandas as pd
-import numpy as np
 from google.cloud import storage
 import pickle
-import io
 
 app = Flask(__name__)
-CORS(app)  # This will handle CORS for the React frontend
+CORS(app, resources={r"/recommend": {"origins": "https://stunning-chaja-f05f2a.netlify.app"}})
 
 # Initialize Google Cloud Storage client
 storage_client = storage.Client()
 
 BUCKET_NAME = '007-model'
+
+print("Starting the updated version of the app...")
+
 
 def load_from_gcs(file_path):
     bucket = storage_client.bucket(BUCKET_NAME)
@@ -20,9 +20,10 @@ def load_from_gcs(file_path):
     data = blob.download_as_bytes()
     return pickle.loads(data)
 
+df = pickle.load(open("anime_dataframe.pkl", "rb"))
 cosine_sim = load_from_gcs("cosine_similarity_matrix.pkl")
 
-
+# sdfhghjashghd
 def recommend_anime(df, cosine_sim, user_history, N=10):
     user_anime_indices = []
     for title in user_history:
@@ -58,13 +59,14 @@ def get_recommendations():
     # Get user history from POST request
     user_history = request.json.get('user_history', [])
 
-    # Load data from Google Cloud Storage
-    df = load_from_gcs("anime_dataframe.pkl")
-
     recommendations = recommend_anime(df, cosine_sim, user_history)
     result = [{"name": name, "score": score, "url": url}
               for name, score, url in recommendations.values]
     return jsonify(result)
+
+@app.route('/version')
+def version():
+    return 'Version 2'
 
 
 if __name__ == '__main__':

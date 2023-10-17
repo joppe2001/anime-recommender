@@ -1,5 +1,8 @@
 <template>
-	<div class="recommendation-container">
+	<div
+		class="recommendation-container"
+		v-if="sortedAnime.length && hasSearched"
+	>
 		<h2>Recommended Anime</h2>
 		<div class="anime-list">
 			<div
@@ -56,7 +59,21 @@
 
 <!-- consentual -->
 <script setup>
-	const props = defineProps(["recommendedAnime"]);
+    const props = defineProps(["recommendedAnime"]);
+
+    const hasSearched = ref(false); // You can change this based on your actual trigger
+
+    // Sort the animes in descending order based on similarity_percentage
+    const sortedAnime = computed(() => {
+        return [...recommendedAnime].sort((a, b) => b.similarity_percentage - a.similarity_percentage);
+    });
+
+    // When the user clicks the search button or whatever triggers the recommendation loading
+    const onSearchClick = () => {
+        // Load the animes and set hasSearched to true
+        // This is just a placeholder. Implement your actual logic.
+        hasSearched.value = true;
+    }
 </script>
 
 <style scoped lang="scss">

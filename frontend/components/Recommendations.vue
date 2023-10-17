@@ -159,10 +159,12 @@
 
 		.percentage-label {
 			position: absolute;
-			left: 0;
-			width: 100%;
-			text-align: center;
-			line-height: 20px; // Should match the height of your progress bar
+			top: 50%; // Center it vertically
+			transform: translateY(-50%); // Ensure it's perfectly centered
+			left: 10px; // Add some space from the left side
+			width: auto; // Adjust width automatically based on content size
+			text-align: left; // Align text to the left side
+			line-height: 30px; // Should match the height of your progress bar
 			color: #e1e1e1; // Or another color that contrasts well with your progress bar color
 		}
 

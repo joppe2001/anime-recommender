@@ -23,7 +23,7 @@ def load_from_gcs(file_path):
 df = pickle.load(open("anime_dataframe.pkl", "rb"))
 cosine_sim = load_from_gcs("cosine_similarity_matrix.pkl")
 
-def recommend_anime(df, cosine_sim, user_history, N=10):
+def recommend_anime(df, cosine_sim, user_history, N=20):
     user_anime_indices = []
     for title in user_history:
         matching_anime = df[(df['engName'].str.lower() == title.lower()) | (

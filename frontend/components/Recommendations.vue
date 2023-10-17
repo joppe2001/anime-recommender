@@ -46,8 +46,12 @@
 				<!-- all rank -->
 				<div class="tags">
 					<!-- display allRank's first number in the array -->
-					<strong>Rank: </strong
-					><span v-for="rank in anime.allRank[0]" :key="rank"> {{ rank }}</span>
+					<p>
+						<strong>Rank: </strong
+						><span v-for="rank in anime.allRank[0]" :key="rank">
+							{{ rank }}</span
+						>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -164,7 +168,7 @@
 			left: 10px; // Add some space from the left side
 			width: auto; // Adjust width automatically based on content size
 			text-align: left; // Align text to the left side
-			line-height: 30px; 
+			line-height: 30px;
 		}
 
 		// Tablet layout

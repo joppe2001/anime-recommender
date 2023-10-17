@@ -9,6 +9,9 @@
         <p>Score: {{ anime.score }}</p>
         <p v-if="anime.genres">Genres: {{ anime.genres }}</p>
         <p v-if="anime.themes">Themes: {{ anime.themes }}</p>
+        <p v-if="anime.aired">Aired: {{ anime.aired }}</p>
+        <p v-if="anime.producer">Producer: {{ anime.producer }}</p>
+        <p v-if="anime.studios">Studios: {{ anime.studios }}</p>
       </div>
     </div>
   </div>

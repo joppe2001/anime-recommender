@@ -26,9 +26,11 @@ cosine_sim = load_from_gcs("cosine_similarity_matrix.pkl")
 # sdfhghjashghd
 def recommend_anime(df, cosine_sim, user_history, N=10):
     user_anime_indices = []
+    
     for title in user_history:
         matching_anime = df[(df['engName'].str.lower() == title.lower()) | (
             df['synonymsName'].str.contains(title, case=False, na=False))]
+        
         if matching_anime.empty:
             print(f"Warning: Anime titled '{title}' not found in the dataset.")
         else:
@@ -37,18 +39,22 @@ def recommend_anime(df, cosine_sim, user_history, N=10):
     avg_sim_scores = cosine_sim[user_anime_indices].mean(axis=0)
     max_score = df["score"].max()
     normalized_scores = df["score"].fillna(0) / max_score
-    combined_scores = avg_sim_scores + normalized_scores
+    popularity_factor = df["members"].fillna(0) / df["members"].max()
+    
+    combined_scores = avg_sim_scores + normalized_scores + popularity_factor
     top_indices = combined_scores.argsort()[-N-1:-1][::-1]
-    recommended_anime = df.iloc[top_indices][['engName', 'score', 'url', 'genres', 'themes' ]]
+    
+    recommended_anime = df.iloc[top_indices][
+        ['engName', 'score', 'url', 'genres', 'themes', 'aired', 'producer', 'studios']
+    ]
 
+    # Remove anime already seen by the user
     for title in user_history:
         matching_indices = recommended_anime[recommended_anime['engName'].str.contains(
             title, case=False)].index
-        if len(matching_indices) > 2:
-            drop_indices = matching_indices[2:]
-            recommended_anime.drop(drop_indices, inplace=True)
+        recommended_anime.drop(matching_indices, inplace=True)
 
-    return recommended_anime
+    return recommended_anime.head(N)
 
 @app.route('/')
 def hello_world():
@@ -60,8 +66,8 @@ def get_recommendations():
     user_history = request.json.get('user_history', [])
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
-    result = [{"name": name, "score": score, "url": url, "genres": genres, "themes": themes}
-              for name, score, url, genres, themes in recommendations.values]
+    result = [{"name": name, "score": score, "url": url, "genres": genres, "themes": themes, "aired": aired, "producer": producer, "studios": studios}
+              for name, score, url, genres, themes, aired, producer, studios in recommendations.values]
     return jsonify(result)
 
 @app.route('/version')

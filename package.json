@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "flask": "^0.2.10",
+    "papaparse": "^5.4.1",
     "sass": "^1.69.3"
   }
 }

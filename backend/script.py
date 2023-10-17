@@ -39,7 +39,7 @@ def recommend_anime(df, cosine_sim, user_history, N=10):
     normalized_scores = df["score"].fillna(0) / max_score
     combined_scores = avg_sim_scores + normalized_scores
     top_indices = combined_scores.argsort()[-N-1:-1][::-1]
-    recommended_anime = df.iloc[top_indices][['engName', 'score', 'url']]
+    recommended_anime = df.iloc[top_indices][['engName', 'score', 'url', ]]
 
     for title in user_history:
         matching_indices = recommended_anime[recommended_anime['engName'].str.contains(

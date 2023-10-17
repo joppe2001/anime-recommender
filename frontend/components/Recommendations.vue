@@ -2,11 +2,16 @@
   <div class="recommendation-container">
     <h2>Recommended Anime</h2>
     <div class="anime-list">
-      <div v-for="anime in recommendedAnime" :key="anime.name" class="anime-item">
+      <div v-for="anime in recommendedAnime" :key="anime.engName || anime.jpName" class="anime-item">
         <h3>
-          <a :href="anime.url">{{ anime.name }}</a>
+          <a :href="anime.url">{{ anime.engName || anime.jpName }}</a>
         </h3>
         <p>Score: {{ anime.score }}</p>
+        <p v-if="anime.genres">Genres: {{ anime.genres }}</p>
+        <p v-if="anime.themes">Themes: {{ anime.themes }}</p>
+        <p v-if="anime.aired">Aired: {{ anime.aired }}</p>
+        <p v-if="anime.producer">Producer: {{ anime.producer }}</p>
+        <p v-if="anime.studios">Studios: {{ anime.studios }}</p>
       </div>
     </div>
   </div>

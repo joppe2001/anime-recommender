@@ -34,7 +34,12 @@
 					<strong>Studios:</strong> {{ anime.studios.join(", ") }}
 				</p>
 				<!-- all rank -->
-				<p v-if="anime.allRank"><strong>Rank </strong> {{ anime.allRank }}</p>
+				<div class="tags">
+					<!-- display allRank's first number in the array -->
+          <span class="tag" v-for="rank in anime.allRank[0]" :key="rank">{{
+            rank
+          }}</span>
+				</div>
 			</div>
 		</div>
 	</div>

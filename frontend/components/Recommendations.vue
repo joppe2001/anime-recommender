@@ -130,6 +130,7 @@
 		.similarity-score-container {
 			position: relative;
 			width: 100%;
+			color: #333;
 		}
 
 		.similarity-meter {

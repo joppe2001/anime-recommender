@@ -68,6 +68,7 @@
 			width: 100%; // Default to single column for mobile
 			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 			transition: box-shadow 0.3s ease;
+      box-sizing: border-box;
 
 			&:hover {
 				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -123,7 +124,7 @@
 		// Laptop layout with 2 columns
 		@media (min-width: 1024px) {
 			.anime-card {
-				width: calc(50% - 40px); // Shorten distance between two columns
+				width: calc(50% - 20px); // Shorten distance between two columns
 				margin: 10px;
 			}
 		}
@@ -131,7 +132,7 @@
 		// Desktop layout with 3 columns
 		@media (min-width: 1200px) {
 			.anime-card {
-				width: calc(33% - 30px);
+				width: calc(33% - 20px);
 				margin: 15px;
 			}
 		}

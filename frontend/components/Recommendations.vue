@@ -18,7 +18,9 @@
 						:value="anime.similarity_percentage"
 						max="100"
 					></progress>
-					<div class="percentage-label">{{ anime.similarity_percentage }}%</div>
+					<div class="percentage-label">
+						{{ anime.similarity_percentage.toFixed(2) }}%
+					</div>
 				</div>
 				<p><strong>Score:</strong> {{ anime.score }}</p>
 
@@ -133,8 +135,9 @@
 
 		.similarity-meter {
 			width: 100%;
-			height: 20px; // Or whatever height you prefer
-			// ... your other styles for the progress bar ...
+			height: 40px; // Or whatever height you prefer
+			border: none;
+			border-radius: 2px;
 		}
 
 		.percentage-label {

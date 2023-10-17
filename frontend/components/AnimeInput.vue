@@ -94,7 +94,7 @@
 		const inputArray = animeInput.value.split(",");
 		// Make API request to the Flask backend
 		const response = await fetch(
-			"https://20231017t102659-dot-new-recommender.ew.r.appspot.com/recommend",
+			"https://new-recommender.ew.r.appspot.com/recommend",
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },

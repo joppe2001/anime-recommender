@@ -135,15 +135,30 @@
 
 		.similarity-meter {
 			width: 100%;
-			height: 40px; // Or whatever height you prefer
+			height: 30px; // Or whatever height you prefer
 			border: none;
 			border-radius: 2px;
-      background-color: #2980b9; // Or whatever background color you prefer
+			background-color: #2980b9; // Or whatever background color you prefer
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			&::-moz-progress-bar {
+				background-color: #3498db; // Desired color for the progress
+			}
+
+			// For Chrome, Safari, and Opera
+			&::-webkit-progress-bar {
+				background-color: #e1e1e1; // Background color for the bar when it's empty
+			}
+
+			&::-webkit-progress-value {
+				background-color: #3498db; // Desired color for the progress
+			}
 		}
 
 		.percentage-label {
 			position: absolute;
-			top: 50%; // Adjust this value to vertically center the text, if necessary
 			left: 0;
 			width: 100%;
 			text-align: center;

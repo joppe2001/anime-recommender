@@ -3,7 +3,7 @@
 		<h2>Recommended Anime</h2>
 		<div class="anime-list">
 			<div
-				v-for="anime in sortedAnime"
+				v-for="anime in recommendedAnime"
 				:key="anime.engName || anime.jpName"
 				class="anime-card"
 			>
@@ -57,16 +57,6 @@
 <!-- consentual -->
 <script setup>
 	const props = defineProps(["recommendedAnime"]);
-
-	const recommendedAnime = ref(props.recommendedAnime);
-
-	const sortedAnime = computed(() => {
-		if (recommendedAnime) {
-			return recommendedAnime
-				.slice()
-				.sort((a, b) => b.similarity_percentage - a.similarity_percentage);
-		}
-	});
 </script>
 
 <style scoped lang="scss">

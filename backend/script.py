@@ -45,7 +45,7 @@ def recommend_anime(df, cosine_sim, user_history, N=10):
     top_indices = combined_scores.argsort()[-N*2:][::-1]  # Fetching more indices to filter out already watched anime
     
     recommended_anime = df.iloc[top_indices][
-        ['engName', 'score', 'url', 'genres', 'themes', 'aired', 'producer', 'studios']
+        ['engName', 'score', 'url', 'genres']
     ]
 
     # Remove anime already seen by the user
@@ -67,8 +67,8 @@ def get_recommendations():
     user_history = request.json.get('user_history', [])
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
-    result = [{"name": name, "score": score, "url": url, "genres": genres, "themes": themes, "aired": aired, "producer": producer, "studios": studios}
-              for name, score, url, genres, themes, aired, producer, studios in recommendations.values]
+    result = [{"name": name, "score": score, "url": url, "genres": genres}
+              for name, score, url, genres in recommendations.values]
     return jsonify(result)
 
 @app.route('/version')

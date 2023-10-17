@@ -16,6 +16,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "flask": "^0.2.10"
+    "flask": "^0.2.10",
+    "sass": "^1.69.3"
   }
 }

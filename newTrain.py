@@ -33,7 +33,7 @@ if __name__ == '__main__':
     filename = "anime_list.csv"
     df = load_data(filename)
 
-    feature_columns = ['genres', 'themes', 'studios', 'allRank']
+    feature_columns = ['genres', 'themes', 'studios', 'allRank', 'themes']
     df, features_matrix, _ = preprocess_data(df, feature_columns)
 
     # Compute the cosine similarity matrix

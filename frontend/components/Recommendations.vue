@@ -57,9 +57,8 @@
 
 <!-- consentual -->
 <script setup>
-	const props = defineProps(["recommendedAnime"]);
 
-	const recommendedAnime = props.recommendedAnime
+	const { recommendedAnime } = defineProps();
 
 	const sortedAnime = computed(() => {
 		return recommendedAnime

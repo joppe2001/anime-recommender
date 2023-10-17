@@ -138,16 +138,17 @@
 			height: 40px; // Or whatever height you prefer
 			border: none;
 			border-radius: 2px;
+      background-color: #2980b9; // Or whatever background color you prefer
 		}
 
 		.percentage-label {
 			position: absolute;
-			top: 0; // Adjust this value to vertically center the text, if necessary
+			top: 50%; // Adjust this value to vertically center the text, if necessary
 			left: 0;
 			width: 100%;
 			text-align: center;
 			line-height: 20px; // Should match the height of your progress bar
-			color: #555; // Or another color that contrasts well with your progress bar color
+			color: #e1e1e1; // Or another color that contrasts well with your progress bar color
 		}
 
 		// Tablet layout

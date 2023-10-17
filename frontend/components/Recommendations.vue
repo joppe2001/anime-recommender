@@ -12,6 +12,12 @@
 						anime?.name ? anime.name : "Name not available"
 					}}</a>
 				</h3>
+				<progress
+					class="similarity-meter"
+					:value="anime.similarity_percentage"
+					max="100"
+				></progress>
+
 				<p><strong>Score:</strong> {{ anime.score }}</p>
 
 				<div v-if="anime.genres" class="tags">
@@ -36,9 +42,9 @@
 				<!-- all rank -->
 				<div class="tags">
 					<!-- display allRank's first number in the array -->
-          <span class="tag" v-for="rank in anime.allRank[0]" :key="rank">{{
-            rank
-          }}</span>
+					<span class="tag" v-for="rank in anime.allRank[0]" :key="rank">{{
+						rank
+					}}</span>
 				</div>
 			</div>
 		</div>
@@ -118,6 +124,29 @@
 					margin: 2px;
 					font-size: 0.9rem;
 				}
+			}
+		}
+
+		.similarity-meter {
+			width: 100%;
+			height: 8px;
+			border: none;
+			border-radius: 4px;
+			color: #3498db; // This changes the bar color in some browsers
+			background-color: #e1e1e1;
+
+			// For Firefox
+			&::-moz-progress-bar {
+				background-color: #3498db;
+			}
+
+			// For Chrome, Safari, and Opera
+			&::-webkit-progress-bar {
+				background-color: #e1e1e1;
+			}
+
+			&::-webkit-progress-value {
+				background-color: #3498db;
 			}
 		}
 

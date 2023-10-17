@@ -8,6 +8,7 @@
         </h3>
         <p>Score: {{ anime.score }}</p>
         <p v-if="anime.genres">Genres: {{ anime.genres }}</p>
+        <p v-if="anime.themes">Themes: {{ anime.themes }}</p>
       </div>
     </div>
   </div>

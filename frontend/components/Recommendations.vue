@@ -59,6 +59,8 @@
 <script setup>
 	const props = defineProps(["recommendedAnime"]);
 
+	const recommendedAnime = ref(props.recommendedAnime);
+
 	const sortedAnime = computed(() => {
 		return recommendedAnime
 			.slice()

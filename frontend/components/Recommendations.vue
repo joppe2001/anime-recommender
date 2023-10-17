@@ -2,21 +2,29 @@
   <div class="recommendation-container">
     <h2>Recommended Anime</h2>
     <div class="anime-list">
-      <div v-for="anime in recommendedAnime" :key="anime.engName || anime.jpName" class="anime-item">
-        <h3>
+      <div v-for="anime in recommendedAnime" :key="anime.engName || anime.jpName" class="anime-card">
+        <h3 class="anime-title">
           <a :href="anime.url">{{ anime?.name ? anime.name : 'Name not available' }}</a>
         </h3>
-        <p>Score: {{ anime.score }}</p>
-        <p v-if="anime.genres">Genres: {{ anime.genres }}</p>
-        <p v-if="anime.themes">Themes: {{ anime.themes }}</p>
-        <p v-if="anime.aired">Aired: {{ anime.aired }}</p>
-        <p v-if="anime.producer">Producer: {{ anime.producer }}</p>
-        <p v-if="anime.studios">Studios: {{ anime.studios }}</p>
+        <p><strong>Score:</strong> {{ anime.score }}</p>
+        
+        <div v-if="anime.genres" class="tags">
+          <span class="tag" v-for="genre in anime.genres" :key="genre">{{ genre }}</span>
+        </div>
+
+        <div v-if="anime.themes" class="tags">
+          <span class="tag" v-for="theme in anime.themes" :key="theme">{{ theme }}</span>
+        </div>
+        
+        <p v-if="anime.aired"><strong>Aired:</strong> {{ anime.aired }}</p>
+        <p v-if="anime.producer"><strong>Producer:</strong> {{ anime.producer }}</p>
+        <p v-if="anime.studios"><strong>Studios:</strong> {{ anime.studios.join(', ') }}</p>
       </div>
     </div>
   </div>
 </template>
 
+<!-- consentual -->
 <script setup>
 const props = defineProps(['recommendedAnime']);
 </script>
@@ -24,53 +32,72 @@ const props = defineProps(['recommendedAnime']);
 <style scoped lang="scss">
 .recommendation-container {
   font-family: 'Arial', sans-serif;
-  max-width: 700px;
-  margin: 50px auto;
-  padding: 20px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
 
   h2 {
+    text-align: center;
     color: #2c3e50;
     margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 2px solid #e74c3c;
-    padding-bottom: 15px;
   }
 
   .anime-list {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 
-    .anime-item {
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 6px;
-      background-color: #f9f9f9;
-      transition: background-color 0.3s ease;
+  .anime-card {
+    background: #f7f7f7;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px;
+    width: calc(33% - 30px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 
-      &:hover {
-        background-color: #e9e9e9;
-      }
+    &:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-      h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        a {
+    .anime-title {
+      margin-top: 0;
+      margin-bottom: 10px;
+
+      a {
+        text-decoration: none;
+        color: #3498db;
+        transition: color 0.3s ease;
+
+        &:hover {
           color: #2980b9;
-          text-decoration: none;
-          transition: color 0.3s ease;
-
-          &:hover {
-            color: #e74c3c;
-          }
         }
       }
+    }
 
-      p {
-        margin: 0;
-        color: #7f8c8d;
+    p {
+      margin-bottom: 10px;
+      color: #34495e;
+
+      strong {
+        color: #2c3e50;
+      }
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 8px 0;
+
+      .tag {
+        background-color: #e1e1e1;
+        color: #333;
+        padding: 2px 8px;
+        border-radius: 14px;
+        margin: 2px;
+        font-size: 0.9rem;
       }
     }
   }
 }
+
 </style>

@@ -124,7 +124,7 @@
 		@media (min-width: 1024px) {
 			.anime-card {
 				width: calc(50% - 40px); // Shorten distance between two columns
-				margin: 20px;
+				margin: 10px;
 			}
 		}
 

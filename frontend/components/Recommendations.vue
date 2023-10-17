@@ -47,7 +47,7 @@
 				<div class="tags">
 					<!-- display allRank's first number in the array -->
 					<strong>Rank: </strong><span v-for="rank in anime.allRank[0]" :key="rank"
-						>{{ rank }}</span
+						> {{ rank }}</span
 					>
 				</div>
 			</div>

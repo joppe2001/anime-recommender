@@ -57,10 +57,11 @@
 
 <!-- consentual -->
 <script setup>
-
 	const { recommendedAnime } = defineProps();
 
 	const sortedAnime = computed(() => {
+		if (!recommendedAnime) return []; // Check if recommendedAnime exists
+
 		return recommendedAnime
 			.slice()
 			.sort((a, b) => b.similarity_percentage - a.similarity_percentage);

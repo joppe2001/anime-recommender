@@ -62,6 +62,8 @@ const { recommendedAnime } = defineProps();
 const sortedAnimeList = ref([]);
 
 watch(recommendedAnime, (newList) => {
+  console.log('recommendedAnime updated:', newList);
+
   if (newList && newList.length) {
     sortedAnimeList.value = newList
       .slice()
@@ -70,6 +72,7 @@ watch(recommendedAnime, (newList) => {
     sortedAnimeList.value = [];
   }
 });
+
 </script>
 
 <style scoped lang="scss">

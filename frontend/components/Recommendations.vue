@@ -164,8 +164,7 @@
 			left: 10px; // Add some space from the left side
 			width: auto; // Adjust width automatically based on content size
 			text-align: left; // Align text to the left side
-			line-height: 30px; // Should match the height of your progress bar
-			color: #e1e1e1; // Or another color that contrasts well with your progress bar color
+			line-height: 30px; 
 		}
 
 		// Tablet layout

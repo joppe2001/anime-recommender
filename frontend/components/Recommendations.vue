@@ -46,9 +46,8 @@
 				<!-- all rank -->
 				<div class="tags">
 					<!-- display allRank's first number in the array -->
-					<strong>Rank: </strong><span v-for="rank in anime.allRank[0]" :key="rank"
-						> {{ rank }}</span
-					>
+					<strong>Rank: </strong
+					><span v-for="rank in anime.allRank[0]" :key="rank"> {{ rank }}</span>
 				</div>
 			</div>
 		</div>
@@ -109,12 +108,10 @@
 			p {
 				margin-bottom: 10px;
 				color: #34495e;
-
-				strong {
-					color: #2c3e50;
-				}
 			}
-
+			strong {
+				color: #2c3e50;
+			}
 			.tags {
 				display: flex;
 				flex-wrap: wrap;

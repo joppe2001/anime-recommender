@@ -185,7 +185,7 @@
 		// Desktop layout with 3 columns
 		@media (min-width: 1200px) {
 			.anime-card {
-				width: calc(33% - 20px);
+				width: calc(50% - 20px);
 				margin: 15px;
 			}
 		}

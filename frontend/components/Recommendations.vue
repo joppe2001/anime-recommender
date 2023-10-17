@@ -3,7 +3,7 @@
 		<h2>Recommended Anime</h2>
 		<div class="anime-list">
 			<div
-				v-for="anime in sortedAnimeList"
+				v-for="anime in recommendedAnime"
 				:key="anime.engName || anime.jpName"
 				class="anime-card"
 			>

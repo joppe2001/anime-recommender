@@ -33,6 +33,8 @@
 				<p v-if="anime.studios">
 					<strong>Studios:</strong> {{ anime.studios.join(", ") }}
 				</p>
+				<!-- all rank -->
+				<p v-if="anime.rank"><strong>Rank </strong> {{ anime.rank }}</p>
 			</div>
 		</div>
 	</div>
@@ -68,7 +70,7 @@
 			width: 100%; // Default to single column for mobile
 			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 			transition: box-shadow 0.3s ease;
-      box-sizing: border-box;
+			box-sizing: border-box;
 
 			&:hover {
 				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);

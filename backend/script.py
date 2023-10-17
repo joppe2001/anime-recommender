@@ -40,7 +40,7 @@ def recommend_anime(df, cosine_sim, user_history, N=10):
     normalized_scores = df["score"].fillna(0) / max_score
     combined_scores = avg_sim_scores + normalized_scores
     top_indices = combined_scores.argsort()[-N-1:-1][::-1]
-    recommended_anime = df.iloc[top_indices][['engName', 'score', 'url', 'genres', 'themes', 'producer', 'studios']]
+    recommended_anime = df.iloc[top_indices][['engName', 'score', 'url', 'genres', 'themes', 'producer', 'studios', 'allRank']]
 
     for title in user_history:
         matching_indices = recommended_anime[recommended_anime['engName'].str.contains(
@@ -61,8 +61,8 @@ def get_recommendations():
     user_history = request.json.get('user_history', [])
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
-    result = [{"name": name, "score": score, "url": url, "genres": genres, "themes": themes, "producer": producer, "studios": studios}
-              for name, score, url, genres, themes, producer, studios in recommendations.values]
+    result = [{"name": name, "score": score, "url": url, "genres": genres, "themes": themes, "producer": producer, "studios": studios, "allRank": allRank}
+              for name, score, url, genres, themes, producer, studios, allRank in recommendations.values]
     return jsonify(result)
 
 @app.route('/version')

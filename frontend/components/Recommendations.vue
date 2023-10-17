@@ -4,7 +4,7 @@
     <div class="anime-list">
       <div v-for="anime in recommendedAnime" :key="anime.engName || anime.jpName" class="anime-item">
         <h3>
-          <a :href="anime.url">{{ anime.engName || anime.jpName }}</a>
+          <a :href="anime.url">{{ anime?.name ? anime.name : 'Name not available' }}</a>
         </h3>
         <p>Score: {{ anime.score }}</p>
         <p v-if="anime.genres">Genres: {{ anime.genres }}</p>

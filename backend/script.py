@@ -67,8 +67,8 @@ def get_recommendations():
     user_history = request.json.get('user_history', [])
 
     recommendations = recommend_anime(df, cosine_sim, user_history)
-    result = [{"name": name, "score": score, "url": url}
-              for name, score, url in recommendations.values]
+    result = [{"name": name, "score": score, "url": url, "genres": genres, "themes": themes, "aired": aired, "producer": producer, "studios": studios}
+              for name, score, url, genres, themes, aired, producer, studios in recommendations.values]
     return jsonify(result)
 
 @app.route('/version')

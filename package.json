@@ -10,12 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^1.0.0",
     "nuxt": "^3.7.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "esbuild": "^0.19.5",
     "flask": "^0.2.10",
     "papaparse": "^5.4.1",
     "sass": "^1.69.3"

@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 import os
 import scipy.sparse as sp
-assert pd.__version__ == '1.1.5'
+# assert pd.__version__ == '1.1.5'
 
 def load_data(filename):
     return pd.read_csv(filename, na_values=["", " "])
@@ -30,7 +30,7 @@ def preprocess_data(df, feature_columns):
     return df, features_matrix, mlbs
 
 if __name__ == '__main__':
-    filename = "anime_list.csv"
+    filename = "frontend/public/anime_list.csv"
     df = load_data(filename)
 
     feature_columns = ['genres', 'themes', 'studios', 'allRank', 'themes']

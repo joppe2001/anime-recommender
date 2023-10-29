@@ -68,7 +68,6 @@
         )
         .slice(0, 30);
 
-    // Automatically show the suggestions if there are any
     showSuggestions.value = suggestions.value.length > 0;
 }
 
@@ -92,7 +91,6 @@
 
 	async function getRecommendations() {
 		const inputArray = animeInput.value.split(",");
-		// Make API request to the Flask backend
 		const response = await fetch(
 			"https://new-recommender.ew.r.appspot.com/recommend",
 			{

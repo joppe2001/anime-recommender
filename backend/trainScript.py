@@ -5,7 +5,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 import os
 import scipy.sparse as sp
-# assert pd.__version__ == '1.1.5'
 
 def load_data(filename):
     return pd.read_csv(filename, na_values=["", " "])

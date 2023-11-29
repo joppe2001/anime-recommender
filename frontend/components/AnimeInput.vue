@@ -29,7 +29,6 @@
 
 <script setup>
 import { ref } from "vue";
-// import anime_list.csv from root
 import Papa from "papaparse";
 
 let animeDataset = [];
@@ -42,7 +41,7 @@ onMounted(async () => {
   await loadCSV();
 });
 
-async function loadCSV() {
+const loadCSV = async () => {
   const response = await fetch("/anime_list.csv"); // Adjust the path as needed
   const csvData = await response.text();
   Papa.parse(csvData, {
@@ -63,7 +62,7 @@ async function loadCSV() {
 
 console.log(animeDataset);
 
-function fetchSuggestions() {
+const fetchSuggestions = async () => {
 	const input = animeInput.value.toLowerCase();
 	suggestions.value = animeDataset
 		.filter((anime) => anime.toLowerCase().includes(input))
@@ -82,18 +81,18 @@ function fetchSuggestions() {
 
 	showSuggestions.value = suggestions.value.length > 0;
 }
-function selectSuggestion(suggestion) {
+const selectSuggestion = (suggestion) => {
   animeInput.value = suggestion;
   closeSuggestions();
 }
 
-function closeSuggestions() {
+const closeSuggestions = () => {
   setTimeout(() => {
     showSuggestions.value = false;
   }, 200);
 }
 
-async function getRecommendations() {
+const getRecommendations = async () => {
   const inputArray = animeInput.value.split(",");
   const response = await fetch("https://127.0.0.1:3000/recommend", {
     method: "POST",

@@ -64,15 +64,24 @@ async function loadCSV() {
 console.log(animeDataset);
 
 function fetchSuggestions() {
-  suggestions.value = animeDataset
-    .filter((anime) =>
-      anime.toLowerCase().includes(animeInput.value.toLowerCase())
-    )
-    .slice(0, 30);
+	const input = animeInput.value.toLowerCase();
+	suggestions.value = animeDataset
+		.filter((anime) => anime.toLowerCase().includes(input))
+		.sort((a, b) => {
+			// Prioritize exact matches
+			if (a.toLowerCase() === input) return -1;
+			if (b.toLowerCase() === input) return 1;
 
-  showSuggestions.value = suggestions.value.length > 0;
+			// Then prioritize shorter titles
+			if (a.length !== b.length) return a.length - b.length;
+
+			// Finally, sort by similarity to the user's input
+			return a.toLowerCase().indexOf(input) - b.toLowerCase().indexOf(input);
+		})
+		.slice(0, 30);
+
+	showSuggestions.value = suggestions.value.length > 0;
 }
-
 function selectSuggestion(suggestion) {
   animeInput.value = suggestion;
   closeSuggestions();

@@ -1,5 +1,5 @@
 <template>
-  <div class="recommendation-container">
+  <div class="recommendation-container" v-if="sortedAnime.length > 0">
     <h2>Recommended Anime</h2>
     <div class="anime-list">
       <div
@@ -12,6 +12,12 @@
             anime?.name ? anime.name : "Name not available"
           }}</a>
         </h3>
+		<div class="match" v-if="anime.similarity_percentage < 70" style="color: red; margin-bottom: 10px;">
+		  bad match
+		</div>
+		<div class="match" v-if="anime.similarity_percentage > 70" style="color: green; margin-bottom: 10px;">
+		  good match
+		</div>
         <div class="similarity-score-container">
           <progress
             class="similarity-meter"
@@ -195,7 +201,7 @@ const sortedAnime = computed(() => {
   // Desktop layout with 3 columns
   @media (min-width: 1200px) {
     .anime-card {
-      width: calc(22% - 20px);
+      width: calc(22% - 5px);
       margin: 15px;
     }
   }

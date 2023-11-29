@@ -14,7 +14,7 @@ def preprocess_data(df, feature_columns):
     mlbs = {}
     feature_matrices = []
     
-    df["duration"] = df["duration"].str.extract("(\d+)").astype(float)
+    df["duration"] = df["duration"].str.extract("(\d+)").astype(float) # Extract the number from the duration string
     df["duration"].fillna(df["duration"].mean(), inplace=True)
     
     for col in feature_columns:
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     filename = "frontend/public/anime_list.csv"
     df = load_data(filename)
 
-    feature_columns = ['genres', 'themes', 'studios', 'allRank', 'themes']
+    feature_columns = ['genres', 'themes', 'studios', 'allRank', 'themes'] # use 'themes' twice to give it more weight
     df, features_matrix, _ = preprocess_data(df, feature_columns)
 
     # Compute the cosine similarity matrix

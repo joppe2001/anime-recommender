@@ -20,7 +20,7 @@ def load_from_gcs(file_path):
     data = blob.download_as_bytes()
     return pickle.loads(data)
 
-def recommend_anime(df, cosine_sim, user_history, N=20):
+def recommend_anime(df, cosine_sim, user_history, N=20): # N is the number of recommendations
     """Generates anime recommendations based on user history."""
     user_anime_indices = _get_user_anime_indices(df, user_history)
     recommended_anime = _get_recommendations(df, cosine_sim, user_anime_indices, N)

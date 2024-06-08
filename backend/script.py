@@ -6,7 +6,8 @@ import pandas as pd
 
 # Configuration and initialization
 app = Flask(__name__)
-CORS(app, resources={r"/recommend": {"origins": "https://localhost:3000"}})
+CORS(app, resources={r"/recommend": {"origins": "*"}})
+
 
 # Google Cloud Storage setup
 BUCKET_NAME = '007-model'
